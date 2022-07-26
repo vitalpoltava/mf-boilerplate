@@ -1,2 +1,2 @@
-# mf-boilerplate
-Microfrontends simple boilerplate
+# Microfrontends simple boilerplate
+
