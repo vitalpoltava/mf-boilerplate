@@ -4,10 +4,6 @@ import Root from "./Root";
 
 import "./index.css";
 
-const App = () => (
-  <div>
-    <Root />
-  </div>
-);
+const App = () => (<Root />);
 const root = createRoot(document.getElementById("app")!);
 root.render(<App />);
