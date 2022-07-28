@@ -33,6 +33,9 @@
   "exclude": [
     "node_modules"
   ],
+  "files": [
+    "node_modules/webpack/module.d.ts"
+  ],
   "include": [
     "./src/**/*",
     "./jest-setup.ts",

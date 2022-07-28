@@ -8,7 +8,8 @@ First clone the repository, then prepare a remote fragment to be available to th
 3. `yarn build`
 4. `yarn start`
 
-Then we should prepare a host
+Then we should prepare a host:
+
 5. `cd ../host`
 6. `yarn install`
 7. `yarn start`
