@@ -1,5 +1,12 @@
 # Microfrontends simple boilerplate
 
+## Brief description
+
+1. Based on Webpack's plugin -- `ModuleFederationPlugin` (Webpack 5+);
+2. Host loads remote chunks dynamically (see `host/src/loadFederatedModule.ts`);
+3. You can expose single component or micro application (app fragment);
+4. Host could be used as a remote to another host (bidirectional hosts);
+
 ## Running the app
 
 First clone the repository, then prepare a remote fragment to be available to the host:
