@@ -3,9 +3,10 @@ import { createRoot } from 'react-dom/client';
 import HostApp from "./Host";
 import { loadFederatedModule } from "./loadFederatedModule";
 import Config from "./configs";
+import type { Shared } from "../shared/types";
 
 // Load remote fragment
-const RemoteApp = React.lazy(loadFederatedModule(Config.REMOTE_URL, 'remoteapp', './RemoteRoot'));
+const RemoteApp: Shared.MF1RootComponent = React.lazy(loadFederatedModule(Config.REMOTE_URL, 'remoteapp', './RemoteRoot'));
 
 import "./index.css";
 
@@ -24,7 +25,7 @@ const App = () => (
         </td>
         <td>
           <Suspense fallback={<div>Loading...</div>}>
-            <RemoteApp />
+            <RemoteApp name={Config.REMOTE_NAME} />
           </Suspense>
         </td>
       </tr>

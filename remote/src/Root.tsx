@@ -1,8 +1,9 @@
 import React from "react";
+import { RootProps } from "@/exposed-types";
 
-const Root = () => (
+const Root = ({ name }: RootProps) => (
     <div className="container">
-        <div>Name: Remote</div>
+        <div>Name: { name }</div>
         <div>Framework: react</div>
         <div>Language: TypeScript</div>
         <div>CSS: Empty CSS</div>
