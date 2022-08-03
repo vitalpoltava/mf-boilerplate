@@ -1,5 +1,5 @@
 const Config = {
-    REMOTE_NAME: "Microfrontend #1",
+    REMOTE_NAME: "Books List App",
     REMOTE_URL: "http://localhost:3001/remoteEntry.js"
 }
 
