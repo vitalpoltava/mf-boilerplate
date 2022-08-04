@@ -14,9 +14,10 @@ function List() {
     getBooks()
       .then((books) => {
         setItems(books);
-      }).catch(() => {
-      setIsError(true);
-    })
+      })
+      .catch(() => {
+        setIsError(true);
+      })
       .finally(() => {
         setIsLoaded(true);
       })

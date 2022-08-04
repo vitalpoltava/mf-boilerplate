@@ -8,7 +8,7 @@ const Item = ({book}: any) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true)
+  const handleShow = () => setShow(true);
   return (
     <Row>
       <Col className="py-1 bg-light" sm={2}>

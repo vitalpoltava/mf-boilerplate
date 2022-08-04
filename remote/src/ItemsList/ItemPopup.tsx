@@ -6,11 +6,13 @@ const ItemPopup = ({show, handleClose, book}: any) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Book #{book.id} details</Modal.Title>
+        <Modal.Title><div className="text-success">{book.title}</div></Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h6>{book.title}</h6>
-        <div className="mt-2">{book.authors[0]?.name}</div>
+        <div className="my-2">
+          <div className="fw-bold px-1 d-inline-block">Author(s)</div>: {book.authors.map((author: any) => (<div key={author.name} className="my-2 d-inline-block">{author.name}</div>))}
+        </div>
+        <div><div className="fw-bold px-1 d-inline-block">Bookshelves</div>: {book.bookshelves?.join(', ') || "none"}</div>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
