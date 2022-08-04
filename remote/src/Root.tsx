@@ -2,8 +2,8 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import Container from "react-bootstrap/Container";
 import Stack from 'react-bootstrap/Stack';
-import { RootProps } from "@/exposed-types";
-import List from "./List";
+import {RootProps} from "@/exposed-types";
+import List from "./ItemsList";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Root = ({name}: RootProps) => (

@@ -8,7 +8,8 @@
     "start": "webpack serve --open --mode development",
     "start:live": "webpack serve --open --mode development --live-reload --hot",
     "specs": "TZ=UTC jest --ci --reporters=default --reporters=jest-junit --passWithNoTests",
-    "deploy": "webpack --mode production && cp ./dist/*.* ../shared/public/mf1 && cp ./src/exposed-types.d.ts ../host/shared/types/mf1-types.d.ts"
+    "deploy": "webpack --mode production && cp ./dist/*.* ../shared/public/mf1 && cp ./src/exposed-types.d.ts ../host/shared/types/mf1-types.d.ts",
+    "share:types": "cp ./src/exposed-types.d.ts ../host/shared/types/mf1-types.d.ts"
   },
   "license": "MIT",
   "author": {
