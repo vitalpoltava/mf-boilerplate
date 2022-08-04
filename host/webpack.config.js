@@ -42,6 +42,11 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "host",
+      filename: "remoteEntry.js",
+      remotes: {},
+      exposes: {
+        "./HostUtils": "./src/loadFederatedModule"
+      },
       shared: {
         ...deps,
         react: {
