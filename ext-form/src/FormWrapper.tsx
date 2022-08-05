@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import {submitForm} from "./http/fetchers";
 
-const FormWrapper = ({name}: any) => {
+const FormWrapper = () => {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -16,11 +17,19 @@ const FormWrapper = ({name}: any) => {
     }
 
     setValidated(true);
-    const data: any = []
+    const data: any = {}
     const fd = new FormData(form);
-    fd.forEach((value, key) => data.push({key, value}));
+    fd.forEach((value, key) => data[key] = value);
     if (isValid) {
-      console.log(name, data)
+      submitForm(data)
+        .then((res) => res.json())
+        .then((data) => {
+          // Notify externals about successfully sent form
+          console.log(data)
+        })
+        .catch(() => {
+          // Notify externals about failed attempt to send form
+        });
     }
   };
 
@@ -54,7 +63,7 @@ const FormWrapper = ({name}: any) => {
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationCustom03">
             <Form.Label>City</Form.Label>
-            <Form.Control type="text" name="city" placeholder="City" required />
+            <Form.Control type="text" name="city" placeholder="City" required/>
             <Form.Control.Feedback type="invalid">
               Please provide a valid city.
             </Form.Control.Feedback>

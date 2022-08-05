@@ -7,7 +7,7 @@ import "./styles/index.css";
 
 const App = () => (
   <div className="p-5">
-    <FormWrapper name="Local Form Run" />
+    <FormWrapper />
   </div>
 );
 const root = createRoot(document.getElementById("app")!);

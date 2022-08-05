@@ -6,6 +6,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const booksRouter = require('./routes/books');
+const formRouter = require('./routes/form');
 
 const app = express();
 
@@ -17,14 +18,16 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public/mf1')));
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, PUT, PATCH, GET, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization');
   next();
 });
 
 app.use('/', indexRouter);
 app.use('/books', booksRouter);
+app.use('/form', formRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
