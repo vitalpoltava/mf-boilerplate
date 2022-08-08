@@ -1,3 +1,5 @@
+# OUTDATED (work in progress)
+
 # Microfrontends simple boilerplate
 
 ## Brief description
