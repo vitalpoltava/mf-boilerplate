@@ -1,5 +1,6 @@
 import React, {Suspense} from "react";
 import {createRoot} from "react-dom/client";
+import PubSub from "pubsub-js";
 import {loadFederatedModule} from "./loadFederatedModule";
 import Config from "./configs";
 
@@ -11,7 +12,7 @@ const App = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <RemoteApp />
+      <RemoteApp PubSub={PubSub} />
     </Suspense>
   );
 }

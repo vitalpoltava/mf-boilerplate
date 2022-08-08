@@ -4,9 +4,14 @@ import Modal from 'react-bootstrap/Modal';
 import {loadFederatedModule} from "root/HostUtils";
 import Config from "../configs";
 
-const ExtFormPopup = ({show, handleClose}: any) => {
+const ExtFormPopup = ({show, handleClose, PubSub}: any) => {
+  const extFormSubscriber = (ch: string, success: boolean) => {
+    handleClose();
+  };
   const RemoteForm: any =
     React.lazy(loadFederatedModule(Config.EXT_FORM_URL, 'form', './RemoteForm'));
+
+  PubSub.subscribe("EXT_FORM_SENT", extFormSubscriber);
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -15,7 +20,7 @@ const ExtFormPopup = ({show, handleClose}: any) => {
       </Modal.Header>
       <Modal.Body>
         <Suspense fallback={<div>Loading form...</div>}>
-          <RemoteForm name="Here will be form"/>
+          <RemoteForm name="Here will be form" PubSub={PubSub}/>
         </Suspense>
       </Modal.Body>
       <Modal.Footer>

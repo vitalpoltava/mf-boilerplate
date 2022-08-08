@@ -5,7 +5,11 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import {submitForm} from "./http/fetchers";
 
-const FormWrapper = () => {
+type Props = {
+  PubSub: PubSubJS.Base
+}
+
+const FormWrapper = ({ PubSub }: Props) => {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,10 +29,11 @@ const FormWrapper = () => {
         .then((res) => res.json())
         .then((data) => {
           // Notify externals about successfully sent form
-          console.log(data)
+          PubSub.publish("EXT_FORM_SENT", true);
         })
         .catch(() => {
           // Notify externals about failed attempt to send form
+          PubSub.publish("EXT_FORM_SENT", false);
         });
     }
   };

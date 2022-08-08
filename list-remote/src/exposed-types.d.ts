@@ -1,4 +1,5 @@
 export type RootProps = {
-  name: string
+  name: string,
+  PubSub: PubSubJS.Base
 }
 
