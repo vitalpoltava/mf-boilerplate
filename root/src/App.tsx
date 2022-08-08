@@ -1,23 +1,20 @@
-import React, { Suspense } from "react";
-import { createRoot } from 'react-dom/client';
-import { loadFederatedModule } from "./loadFederatedModule";
+import React, {Suspense} from "react";
+import {createRoot} from "react-dom/client";
+import {loadFederatedModule} from "./loadFederatedModule";
 import Config from "./configs";
-import type { Shared } from "../shared/types";
 
-// Load remote fragment
-const RemoteApp: Shared.MF1RootComponent =
-  React.lazy(loadFederatedModule(Config.REMOTE_URL, 'remoteapp', './RemoteRoot'));
-
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-const App = () => (
-  <div>
+const App = () => {
+  const selectedApp = Config.APPS[Config.DEFAULT_APP];
+  const RemoteApp: any = React.lazy(loadFederatedModule(selectedApp.URL, 'host', './RemoteApp'));
+
+  return (
     <Suspense fallback={<div>Loading...</div>}>
-      <RemoteApp name={Config.REMOTE_NAME} />
+      <RemoteApp />
     </Suspense>
-  </div>
-);
+  );
+}
 
 const root = createRoot(document.getElementById("app")!);
-root.render(<App />);
+root.render(<App/>);
