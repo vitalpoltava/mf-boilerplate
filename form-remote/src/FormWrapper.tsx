@@ -29,11 +29,11 @@ const FormWrapper = ({ PubSub }: Props) => {
         .then((res) => res.json())
         .then((data) => {
           // Notify externals about successfully sent form
-          PubSub.publish("EXT_FORM_SENT", true);
+          PubSub && PubSub.publish("EXT_FORM_SENT", true);
         })
         .catch(() => {
           // Notify externals about failed attempt to send form
-          PubSub.publish("EXT_FORM_SENT", false);
+          PubSub && PubSub.publish("EXT_FORM_SENT", false);
         });
     }
   };

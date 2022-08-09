@@ -2,12 +2,14 @@ import React, {useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Container from "react-bootstrap/Container";
 import Stack from 'react-bootstrap/Stack';
+import PubSubRoot from "pubsub-js";
 import {RootProps} from "./exposed-types";
 import List from "./ItemsList";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ExtFormPopup from "./ExtFormPopup";
 
 const Root = ({name, PubSub}: RootProps) => {
+  const eventBus = PubSub || PubSubRoot;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -19,7 +21,7 @@ const Root = ({name, PubSub}: RootProps) => {
         <Button onClick={handleShow} className="ms-auto" variant="warning">Open Order Form</Button>
       </Stack>
       <List/>
-      <ExtFormPopup show={show} handleClose={handleClose} PubSub={PubSub} />
+      <ExtFormPopup show={show} handleClose={handleClose} PubSub={eventBus} />
     </Container>
   );
 }
