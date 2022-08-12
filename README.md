@@ -1,4 +1,4 @@
-# Microfrontends PoC
+# Microfrontends boilerplate
 
 ## Brief description
 
