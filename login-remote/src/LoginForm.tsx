@@ -6,11 +6,15 @@ import Row from 'react-bootstrap/Row';
 import {Events} from "host/Events";
 import {submitForm} from "./http/fetchers";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import {BehaviorSubject} from "rxjs";
+
 type Props = {
   PubSub?: PubSubJS.Base,
+  token$: BehaviorSubject<string>,
 }
 
-const FormWrapper = ({PubSub}: Props) => {
+const LoginForm = ({PubSub, token$}: Props) => {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,11 +34,14 @@ const FormWrapper = ({PubSub}: Props) => {
         .then((res) => res.json())
         .then((data) => {
           // Notify externals about successfully sent form
-          PubSub && PubSub.publish(Events.EXT_FORM_SENT, true);
+          PubSub && PubSub.publish(Events.EXT_LOGIN_SENT, true);
+
+          // Update auth token
+          token$ && token$.next(data.authToken);
         })
         .catch(() => {
           // Notify externals about failed attempt to send form
-          PubSub && PubSub.publish(Events.EXT_FORM_SENT, false);
+          PubSub && PubSub.publish(Events.EXT_LOGIN_SENT, false);
         });
     }
   };
@@ -47,41 +54,30 @@ const FormWrapper = ({PubSub}: Props) => {
             <Form.Label>First name</Form.Label>
             <Form.Control
               required
-              name="firstName"
+              name="login"
               type="text"
-              placeholder="First name"
+              placeholder="Login"
               defaultValue="Mark"
             />
             <Form.Control.Feedback type="invalid">Required!</Form.Control.Feedback>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Last name</Form.Label>
+            <Form.Label>Password</Form.Label>
             <Form.Control
               required
-              name="lastName"
-              type="text"
-              placeholder="Last name"
-              defaultValue="Otto"
+              name="password"
+              type="password"
+              placeholder="Password"
+              defaultValue=""
             />
             <Form.Control.Feedback type="invalid">Required!</Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustom03">
-            <Form.Label>City</Form.Label>
-            <Form.Control type="text" name="city" placeholder="City" required/>
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid city.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback type="valid">
-              City is valid!
-            </Form.Control.Feedback>
           </Form.Group>
         </Row>
-        <Button type="submit">Submit form</Button>
+        <Button type="submit">Submit</Button>
       </Form>
     </>
   );
 }
 
-export default FormWrapper;
+export default LoginForm;

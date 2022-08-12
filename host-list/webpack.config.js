@@ -47,7 +47,8 @@ module.exports = {
         root: 'root@http://localhost:3000/remoteEntry.js',
       },
       exposes: {
-        "./RemoteApp": "./src/Root"
+        "./RemoteApp": "./src/Root",
+        "./Events": "./src/Events"
       },
       shared: {
         ...deps,

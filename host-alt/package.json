@@ -22,6 +22,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@types/jest": "^28.1.6",
+    "@types/pubsub-js": "^1.8.3",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "autoprefixer": "^10.1.0",
@@ -51,8 +52,10 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.0",
+    "pubsub-js": "^1.9.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "rxjs": "^7.5.6"
   }
 }

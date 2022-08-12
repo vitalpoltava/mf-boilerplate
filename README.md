@@ -1,6 +1,4 @@
-# OUTDATED (work in progress)
-
-# Microfrontends simple boilerplate
+# Microfrontends PoC
 
 ## Brief description
 
@@ -11,20 +9,24 @@
 
 ## Running the app
 
-First clone the repository, then prepare a remote fragment to be available to the host:
-1. `cd remote`
+First clone the repository, then go through every dir (`api-server`, `host-list`, `list-remote`, `login-remote` and `form-remote`) and do the following:
+1. `cd api-server`
 2. `yarn install`
-3. `yarn build`
 4. `yarn start`
 
-Then we should prepare a host:
+(there is a bash script you can use to change the entry point of the app: `sh manifest.sh "http://localhost:3005/remoteEntry.js"`, if the first argument is missing script uses default address (`http://localhost:3004/remoteEntry.js`))
 
-5. `cd ../host`
-6. `yarn install`
-7. `yarn start`
+Run `http://localhost:3000/` in your browser, and you will see the following:
 
-Run `http://localhost:3000/` in your browser, and you will (probably) see the following:
+![login](login.png)
 
-![result](result.jpg)
+Login form is a microfrontend. Login/pass could be any non-empty string at the moment. Also, you can configure the appearance - as a plain form, or it could appear in a popup. After successful login you will be redirected to the list screen: 
 
-The left part -- is a component from the host application itself, yet the right hand side -- is a remote component (a.k.a. micro frontend fragment) which is loaded by the module federation plugin.
+![list](list.png)
+
+this the list made by `list-remote` micro-frontend. Mind the list's `GET` request (`Authorization` header) - it uses `authToken` which arrived to `login` MF component -- we use `Observable`s to inject it safely all over the app.
+
+If you click the left top button `Open External Form`, it will show you the popup with the form loaded as a micro-frontend from `form-remote`:
+
+![ext-form](external-form.png)
+

@@ -12,7 +12,7 @@ const Config = {
 export const AppState = {
   token$: new BehaviorSubject<string>("No token"),
   isLoggedIn: false,
-  loginFormType: Config.LOGIN_FORM.Card,
+  loginFormType: Config.LOGIN_FORM.Popup,
 }
 
 export default Config;

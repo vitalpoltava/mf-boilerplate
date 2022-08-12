@@ -44,10 +44,11 @@ module.exports = {
       name: "host",
       filename: "remoteEntry.js",
       remotes: {
-        host: 'root@http://localhost:3000/remoteEntry.js',
+        root: 'root@http://localhost:3000/remoteEntry.js',
       },
       exposes: {
-        "./RemoteApp": "./src/Root"
+        "./RemoteApp": "./src/Root",
+        "./Events": "./src/Events"
       },
       shared: {
         ...deps,

@@ -1,9 +1,13 @@
 import React from "react";
 import { createRoot } from 'react-dom/client';
-import Root from "./Root";
+import LoginForm from "./LoginForm";
 
-import "./styles/index.css";
+import "./index.css";
 
-const App = () => (<Root />);
+const App = () => (
+  <div className="p-5">
+    <LoginForm />
+  </div>
+);
 const root = createRoot(document.getElementById("app")!);
 root.render(<App />);

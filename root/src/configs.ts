@@ -1,16 +1,6 @@
-const Config: { [key: string]: any } = {
+const Config: { [key: string]: string } = {
   REMOTE_NAME: "Books List App",
-  DEFAULT_APP: "HOST_LIST",
-  APPS: {
-    HOST_LIST: {
-      NAME: "Main List App",
-      URL: "http://localhost:3004/remoteEntry.js",
-    },
-    HOST_ALT: {
-      NAME: "Alt List App",
-      URL: "http://localhost:3005/remoteEntry.js",
-    },
-  }
+  MANIFEST_API_URL: "http://localhost:3007/manifest",
 }
 
 export default Config;

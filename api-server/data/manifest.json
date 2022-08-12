@@ -1,0 +1,4 @@
+{
+  "manifest": "http://localhost:3004/remoteEntry.js",
+  "host": "host"
+}

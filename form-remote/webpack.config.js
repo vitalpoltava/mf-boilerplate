@@ -43,7 +43,9 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "form",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        host: "host@http://localhost:3004/remoteEntry.js",
+      },
       exposes: {
         "./RemoteForm": "./src/FormWrapper"
       },
