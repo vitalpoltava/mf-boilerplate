@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
+import PubSub from "pubsub-js";
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import {Events} from "host/Events";
 import {submitForm} from "./http/fetchers";
 
 type Props = {
-  PubSub?: PubSubJS.Base,
+  Events: {[key: string]: string}
 }
 
-const FormWrapper = ({PubSub}: Props) => {
+const FormWrapper = ({Events}: Props) => {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,11 +30,11 @@ const FormWrapper = ({PubSub}: Props) => {
         .then((res) => res.json())
         .then((data) => {
           // Notify externals about successfully sent form
-          PubSub && PubSub.publish(Events.EXT_FORM_SENT, true);
+          PubSub.publish(Events.EXT_FORM_SENT, true);
         })
         .catch(() => {
           // Notify externals about failed attempt to send form
-          PubSub && PubSub.publish(Events.EXT_FORM_SENT, false);
+          PubSub.publish(Events.EXT_FORM_SENT, false);
         });
     }
   };

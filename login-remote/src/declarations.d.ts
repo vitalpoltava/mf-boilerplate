@@ -1,2 +1,0 @@
-declare module "host/Events";
-

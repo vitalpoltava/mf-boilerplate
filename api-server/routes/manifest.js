@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data/manifest.json')
-const books = require("../data/books.json");
 
 router
   /* GET manifest */

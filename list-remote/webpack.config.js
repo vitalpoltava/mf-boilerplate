@@ -44,8 +44,7 @@ module.exports = {
       name: "remotelist",
       filename: "remoteEntry.js",
       remotes: {
-        root: "root@http://localhost:3000/remoteEntry.js",
-        host: "host@http://localhost:3004/remoteEntry.js",
+        service: "service@http://localhost:3000/remoteEntry.js",
       },
       exposes: {
         "./RemoteList": "./src/Root"

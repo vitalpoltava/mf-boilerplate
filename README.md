@@ -1,4 +1,4 @@
-# Microfrontends boilerplate
+# Microfrontends Architecture Example
 
 ## Brief description
 
@@ -14,9 +14,7 @@ First clone the repository, then go through every dir (`api-server`, `host-list`
 2. `yarn install`
 4. `yarn start`
 
-(there is a bash script you can use to change the entry point of the app: `sh manifest.sh "http://localhost:3005/remoteEntry.js"`, if the first argument is missing script uses default address (`http://localhost:3004/remoteEntry.js`))
-
-Run `http://localhost:3000/` in your browser, and you will see the following:
+Run `http://localhost:3004/` in your browser, and you will see the following:
 
 ![login](login.png)
 

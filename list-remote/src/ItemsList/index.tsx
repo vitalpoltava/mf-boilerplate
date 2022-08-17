@@ -4,10 +4,9 @@ import Alert from 'react-bootstrap/Alert';
 import Header from "./Header";
 import Item from "./Item";
 import {getBooks, setToken} from "../http/fetchers";
-import {BehaviorSubject} from "rxjs";
 
 type Props = {
-  token$: BehaviorSubject<string>,
+  token$: any,
 }
 
 function List({token$}: Props) {
@@ -17,36 +16,31 @@ function List({token$}: Props) {
 
   useEffect(() => {
     // Listen to auth token update
-    const tokenSubscription = token$ && token$.subscribe((token) => {
-      setToken(token);
+    const tokenUpdate$ = token$ && token$.next().value;
 
-      getBooks()
-        .then((books) => {
-          setIsError(false);
-          setItems(books);
-        })
-        .catch(() => {
-          setIsError(true);
-        })
-        .finally(() => {
-          setIsLoaded(true);
-        })
-    });
+    tokenUpdate$.then(({authToken}: {authToken: string}) => {
+      if (authToken) {
+        setToken(authToken);
 
-    if (!tokenSubscription) {
-      setIsError(true);
-      setIsLoaded(true);
-    }
-
-    return () => {
-      tokenSubscription && tokenSubscription.unsubscribe();
-    }
+        getBooks()
+          .then((books) => {
+            setIsError(false);
+            setItems(books);
+          })
+          .catch(() => {
+            setIsError(true);
+          })
+          .finally(() => {
+            setIsLoaded(true);
+          });
+      }
+    })
   }, [])
 
   return (
     <Container>
       <Header/>
-      {!isLoaded && <div>Loading List...</div>}
+      {!isLoaded && <Alert className="mt-2" key="warning" variant="warning">No items to display..</Alert>}
       {isLoaded && isError && <Alert className="mt-2" key="warning" variant="warning">Loading failed!</Alert>}
       {isLoaded && items.map((item: any) => <Item key={item.id} book={item}/>)}
     </Container>
