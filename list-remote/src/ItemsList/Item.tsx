@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
-import ItemPopup from "./ItemPopup";
+import ItemPopup from "@/ItemsList/ItemPopup";
 
 const Item = ({book}: any) => {
   const [show, setShow] = useState(false);

@@ -1,14 +1,16 @@
 import React, {Suspense} from "react";
 import {useNavigate} from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
-import {loadFederatedModule} from "service/Utils";
-import Config from "../configs";
-import {Events} from "../Events";
+import {loadFormModule} from "service/Utils";
+import {Events} from "@/Events";
 
-const ExtFormPopup = ({show}: {show: boolean}) => {
+type Props = {
+  show: boolean
+}
+
+const ExtFormPopup = ({show}: Props) => {
   const navigate = useNavigate();
-  const RemoteForm: any =
-    React.lazy(loadFederatedModule(Config.EXT_FORM_URL, 'form', './RemoteForm'));
+  const RemoteForm: any = React.lazy(loadFormModule());
 
   return (
     <Modal show={show} onHide={() => navigate("/list")}>

@@ -1,6 +1,5 @@
-const Config = {
-  GET_BOOKS_URL: "http://localhost:3007/books",
-  EXT_FORM_URL: "http://localhost:3002/remoteEntry.js",
+const Config: Config = {
+  GET_BOOKS_BFF_URL: "http://localhost:3007/books",
 }
 
 export default Config;

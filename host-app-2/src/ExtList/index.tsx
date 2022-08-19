@@ -1,11 +1,17 @@
 import React, {Suspense} from "react";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
-import Config, {AppState} from "../configs";
-import {loadFederatedModule} from "service/Utils";
-import {Events} from "../Events";
+import AppState from "@/State";
+import {loadListModule} from "service/Utils";
+import {Events} from "@/Events";
 
-export const Notification = ({isFormSentSuccess, showFormSentAlert, setShowFormSentAlert}: any) => {
+type Props = {
+  isFormSentSuccess: boolean,
+  showFormSentAlert: boolean,
+  setShowFormSentAlert: Function,
+}
+
+export const Notification = ({isFormSentSuccess, showFormSentAlert, setShowFormSentAlert}: Props) => {
   return (
     <ToastContainer className="p-3" position="top-end">
       <Toast bg={isFormSentSuccess ? "success" : "warning"}
@@ -19,13 +25,17 @@ export const Notification = ({isFormSentSuccess, showFormSentAlert, setShowFormS
   )
 }
 
-const ExtList = () => {
-  const List = React.lazy(loadFederatedModule(Config.LIST_URL, "remotelist", "./RemoteList"));
+const ExtList = ({isFormSentSuccess, showFormSentAlert, setShowFormSentAlert}: Props) => {
+  const List = React.lazy(loadListModule());
 
   return (
-    <Suspense fallback={<div>Loading List Form...</div>}>
-      <List token$={AppState.token$} Events={Events}/>
-    </Suspense>
+    <>
+      <Notification isFormSentSuccess={isFormSentSuccess} showFormSentAlert={showFormSentAlert}
+                    setShowFormSentAlert={setShowFormSentAlert}/>
+      <Suspense fallback={<div>Loading List Form...</div>}>
+        <List token$={AppState.token$} Events={Events}/>
+      </Suspense>
+    </>
   );
 }
 

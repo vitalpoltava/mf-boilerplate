@@ -1,18 +1,37 @@
+const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-
+const contract = require("./webpack.contract");
 const deps = require("./package.json").dependencies;
-module.exports = {
+
+const getFormattedBranchName = () => {
+  const branch = process.env.BRANCH_TO_BUILD
+  if (!branch) {
+    return "local"
+  }
+
+  return branch.replace(/.*\//, "").toLowerCase()
+}
+
+module.exports = (env, argv) => ({
+
   output: {
-    publicPath: "http://localhost:3004/",
+    filename: "[name].[contenthash].js",
+    path: path.join(__dirname, "./public"),
+    publicPath: "auto",
   },
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    alias: {
+      "@": path.join(__dirname, "./src"),
+    },
   },
 
   devServer: {
-    port: 3004,
+    ...contract.devServer,
+    static: path.join(__dirname, "dist"),
+    headers: { "Access-Control-Allow-Origin": "*" },
     historyApiFallback: true,
   },
 
@@ -41,10 +60,16 @@ module.exports = {
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "host",
-      filename: "remoteEntry.js",
+      name: contract.moduleFederationPlugin.name,
+      filename: argv.mode === 'development'
+        ? `${contract.moduleFederationPlugin.file.name}.${contract.moduleFederationPlugin.file.extension}`
+        : `${
+          contract.moduleFederationPlugin.file.name
+        }.${getFormattedBranchName()}.[contenthash].${
+          contract.moduleFederationPlugin.file.extension
+        }`,
       remotes: {
-        service: 'service@http://localhost:3000/remoteEntry.js',
+        service: contract.moduleFederationPlugin.remote.service,
       },
       exposes: {
         "./Events": "./src/Events"
@@ -65,4 +90,4 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
-};
+});

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import PubSub from "pubsub-js";
-import {AppState} from "./configs";
-import {Events} from "./Events";
-import ExtForm from "./ExtForm";
-import Login from "./Login";
-import ExtList, {Notification} from "./ExtList";
+import AppState from "@/State";
+import {Events} from "@/Events";
+import ExtForm from "@/ExtForm";
+import Login from "@/Login";
+import ExtList from "@/ExtList";
 
 const Root = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -33,11 +33,8 @@ const Root = () => {
       }/>
       <Route path="list" element={
         !isLoggedIn ? <Navigate to={"/login"}/> :
-          <>
-            <Notification isFormSentSuccess={isFormSentSuccess} showFormSentAlert={showFormSentAlert}
-                          setShowFormSentAlert={setShowFormSentAlert}/>
-            <ExtList/>
-          </>
+          <ExtList isFormSentSuccess={isFormSentSuccess} showFormSentAlert={showFormSentAlert}
+                   setShowFormSentAlert={setShowFormSentAlert}/>
       }/>
       <Route path="list/form" element={<ExtForm/>}/>
     </Routes>

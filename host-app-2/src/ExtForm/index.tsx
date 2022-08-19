@@ -1,13 +1,11 @@
 import React, {Suspense} from "react";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-import {loadFederatedModule} from "service/Utils";
-import Config from "../configs";
-import {Events} from "../Events";
+import {loadFormModule} from "service/Utils";
+import {Events} from "@/Events";
 
 const ExtForm = () => {
-  const RemoteForm: any =
-    React.lazy(loadFederatedModule(Config.EXT_FORM_URL, 'form', './RemoteForm'));
+  const RemoteForm: any = React.lazy(loadFormModule());
 
   return (
     <Container>

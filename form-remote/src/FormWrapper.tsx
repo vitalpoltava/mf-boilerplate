@@ -4,10 +4,10 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import {submitForm} from "./http/fetchers";
+import {submitForm} from "@/http/fetchers";
 
 type Props = {
-  Events: {[key: string]: string}
+  Events: Data
 }
 
 const FormWrapper = ({Events}: Props) => {
@@ -27,15 +27,8 @@ const FormWrapper = ({Events}: Props) => {
     fd.forEach((value, key) => data[key] = value);
     if (isValid) {
       submitForm(data)
-        .then((res) => res.json())
-        .then((data) => {
-          // Notify externals about successfully sent form
-          PubSub.publish(Events.EXT_FORM_SENT, true);
-        })
-        .catch(() => {
-          // Notify externals about failed attempt to send form
-          PubSub.publish(Events.EXT_FORM_SENT, false);
-        });
+        .then(() => {PubSub.publish(Events.EXT_FORM_SENT, true)})
+        .catch(() => {PubSub.publish(Events.EXT_FORM_SENT, false)});
     }
   };
 

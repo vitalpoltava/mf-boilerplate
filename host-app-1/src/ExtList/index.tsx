@@ -3,9 +3,9 @@ import {Outlet} from "react-router-dom";
 import PubSub from "pubsub-js";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
-import Config, {AppState} from "../configs";
-import {loadFederatedModule} from "service/Utils";
-import {Events} from "../Events";
+import AppState from "@/State";
+import {loadListModule} from "service/Utils";
+import {Events} from "@/Events";
 
 const Notification = ({isFormSentSuccess, showFormSentAlert, setShowFormSentAlert}: any) => {
   return (
@@ -24,7 +24,7 @@ const Notification = ({isFormSentSuccess, showFormSentAlert, setShowFormSentAler
 const ExtList = () => {
   const [showFormSentAlert, setShowFormSentAlert] = useState<boolean>(false);
   const [isFormSentSuccess, setIsFormSentSuccess] = useState<boolean>(false);
-  const List = React.lazy(loadFederatedModule(Config.LIST_URL, "remotelist", "./RemoteList"));
+  const List = React.lazy(loadListModule());
 
   useEffect(() => {
     PubSub.subscribe(Events.EXT_FORM_SENT, (ch, success) => {

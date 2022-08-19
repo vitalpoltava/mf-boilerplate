@@ -1,3 +1,5 @@
+import Configs from "@/Configs";
+
 const cachedUrls = new Map();
 
 function loadRemote(url: string): Promise<unknown> {
@@ -31,12 +33,15 @@ function loadComponent(scope: string, module: string) {
   }
 }
 
-export const loadFederatedModule = (url: string, scope: string, module: string) => {
-  return () => loadRemote(url).then(loadComponent(scope, module))
-}
+const loadFederatedModule = (url: string, scope: string, module: string) =>
+  () => loadRemote(url).then(loadComponent(scope, module));
 
-export const loadFederatedModuleAsync =
-  (urlPromise: Promise<string>, scopePromise: Promise<string>, module: string) => {
-    return () => Promise.all([urlPromise, scopePromise])
-      .then(([url, scope]) => loadRemote(url).then(loadComponent(scope, module)))
-  }
+// Host-specific module loaders
+export const loadListModule = () => loadFederatedModule(Configs.LIST.URL, Configs.LIST.SCOPE, Configs.LIST.MODULE);
+export const loadFormModule = () => loadFederatedModule(Configs.FORM.URL, Configs.FORM.SCOPE, Configs.FORM.MODULE);
+export const loadAuthToken = (formData: Data): Promise<TokenHttpResponse> =>
+  fetch(Configs.GET_TOKEN_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(formData)
+  }).then((res) => res.json());

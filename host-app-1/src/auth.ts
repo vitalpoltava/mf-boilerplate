@@ -1,14 +1,10 @@
-import Config from "./configs";
+import {loadAuthToken} from "service/Utils";
 
-const submitForm = (formData: any) => fetch(Config.GET_TOKEN_URL, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(formData)
-})
+const submitForm = (formData: Data): Promise<TokenHttpResponse> => loadAuthToken(formData);
 
 function* tokenGenerator(inputToken: string) {
   while (true) {
-    yield submitForm({inputToken}).then((res) => res.json());
+    yield submitForm({inputToken});
   }
 }
 

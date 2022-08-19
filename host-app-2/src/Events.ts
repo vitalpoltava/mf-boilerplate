@@ -1,4 +1,4 @@
-export const Events = {
+export const Events: Events = {
   EXT_FORM_SENT: "EXT_FORM_SENT",
   EXT_FORM_SENT_CUSTOM: "EXT_FORM_SENT_CUSTOM",
   EXT_LOGIN_SENT: "EXT_LOGIN_SENT",

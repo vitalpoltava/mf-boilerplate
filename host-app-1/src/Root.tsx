@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import PubSub from "pubsub-js";
-import {AppState} from "./configs";
-import {Events} from "./Events";
-import ExtFormPopup from "./ExtFormPopup";
-import Login from "./Login";
-import ExtList from "./ExtList";
+import AppState from "@/State";
+import {Events} from "@/Events";
+import ExtFormPopup from "@/ExtFormPopup";
+import Login from "@/Login";
+import ExtList from "@/ExtList";
 
 const Root = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);

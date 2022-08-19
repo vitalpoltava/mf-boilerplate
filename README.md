@@ -1,4 +1,4 @@
-# Microfrontends Architecture Example
+# Microfrontends Architecture
 
 ## Brief description
 
@@ -18,13 +18,16 @@ Run `http://localhost:3004/` in your browser, and you will see the following:
 
 ![login](login.png)
 
-Login form is a microfrontend. Login/pass could be any non-empty string at the moment. Also, you can configure the appearance - as a plain form, or it could appear in a popup. After successful login you will be redirected to the list screen: 
+Personal token could be any non-empty string at the moment. After successful login you will be redirected to the list screen: 
 
 ![list](list.png)
 
-this the list made by `list-remote` micro-frontend. Mind the list's `GET` request (`Authorization` header) - it uses `authToken` which arrived to `login` MF component -- we use `Observable`s to inject it safely all over the app.
+this the list made by `list-remote` micro-frontend. Mind the list's `GET` request (`Authorization` header) - it uses `authToken` which arrived to `login` MF component -- we use `Generator`s to inject it safely all over the app. Clicking the `Refresh List` button will result applying for a new `authToken` based on your input token (a.k.a. `refresh token`).
 
 If you click the left top button `Open External Form`, it will show you the popup with the form loaded as a micro-frontend from `form-remote`:
 
 ![ext-form](external-form.png)
 
+In case you run the app from `http://localhost:3005/` address - different host would run the same MFs but with different layout -- for example, external form will appear as plain screen without popup (just to demonstrate that existing fragments could be used as MF in different ways in parallel).
+
+![ext-form](external-form-plain.png)
